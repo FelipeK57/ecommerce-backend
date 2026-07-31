@@ -10,5 +10,15 @@ public class CustomerResponseDto {
     private String email;
     private String fullName;
     private String phone;
-    private Boolean active;
+    private Boolean isActive;
+
+    public static CustomerResponseDto from(Customer customer) {
+        return CustomerResponseDto.builder()
+                .id(customer.getId())
+                .email(customer.getEmail())
+                .fullName(customer.getFullName())
+                .phone(customer.getPhone())
+                .isActive(customer.getIsActive())
+                .build();
+    }
 }

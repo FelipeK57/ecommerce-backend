@@ -2,6 +2,7 @@ package com.kevin.ecommerce.modules.auth;
 
 import com.kevin.ecommerce.modules.customers.CustomerResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +14,12 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequestDto registerRequestDto) {
-        CustomerResponseDto customer = authService.register(registerRequestDto);
-        return ResponseEntity.ok(customer);
+    public ResponseEntity<CustomerResponseDto> register(@RequestBody RegisterRequestDto registerRequestDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(authService.register(registerRequestDto));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequestDto) {
+        return ResponseEntity.status(HttpStatus.OK).body(authService.login(loginRequestDto));
     }
 }
